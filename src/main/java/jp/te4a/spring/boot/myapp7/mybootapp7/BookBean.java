@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BookBean {
-Integer id ;
-String title;
-String writter;
-String publisher;
-Integer price;
+    Integer id;
+    String title;
+    String writter;
+    String publisher;
+    Integer price;
 }
