@@ -1,4 +1,4 @@
-package jp.te4a.spring.boot.myapp6;
+package jp.te4a.spring.boot.myapp7.mybootapp7;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,26 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @RequestMapping("/")
+    @RequestMapping("books/list")
+    public String index(Model model) {
+        model.addAttribute("msg", "this is setting message");
+        return "books/list";
+    }
+
+    @RequestMapping(value = "books/list", method = RequestMethod.POST)
+    public ModelAndView postForm(@RequestParam("id") String id,
+            @RequestParam("title") String title, @RequestParam("writter") String writter,
+            @RequestParam("publisher") String publisher, @RequestParam("price") String price) {
+        ModelAndView mv = new ModelAndView("books/list");
+        bookService.save(new BookBean(Integer.valueOf(id), title, writter, publisher,
+                Integer.valueOf(price)));
+        mv.addObject("books", bookService.findAll());
+        return mv;
+    }
+
+}
+
+    /*@RequestMapping("/")
     public String index(Model model) {
         model.addAttribute("msg", "this is setting message");
         return "index";
@@ -36,4 +55,4 @@ public class BookController {
         mv.addObject("msg", buff.toString());
         return mv;
     }
-}
+}*/
